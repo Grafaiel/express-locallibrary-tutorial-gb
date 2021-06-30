@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1= title 
+  p Bem vindo #[em LivrariaLocal], um site muito básico desenvolvido em Express como um exemplo no Mozilla Developer Network.
+
+  h1 Conteúdo dinâmico
+  if error 
+    p Error ao obter conteúdo dinâmico.
+  else 
+    p A livraria têm em seu registro a seguinte contagem total: 
+
+    ul 
+      li #[strong Livros:] !{data.book_count}
+      li #[strong Cópias:] !{data.book_instance_count}
+      li #[strong Cópias Disponíveis] !{data.book_instance_available_count} 
+      li #[strong Autores:] !{data.author_count}
+      li #[strong Genêros:] !{data.genre_count}

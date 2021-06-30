@@ -1,0 +1,21 @@
+extends layout 
+
+block content 
+    h1= title 
+
+    ul  
+        each val in bookinstance_list 
+            li 
+                a(href=val.url) #{val.book.title} : #{val.imprint} -
+                if val.status=='Available'
+                    span.text-success  ( Disponível ) 
+                else if val.status=='Maintenance'
+                    span.text-danger  ( Manutenção ) 
+                else 
+                    span.text-warning  ( Emprestado ) 
+                if val.status !='Available'
+                    // span (Pego: #{val.due_back} )
+                    span (Pego: #{val.due_back_formatted} )
+
+        else 
+            li Não há nenhuma cópia de livro nesta Livraria.

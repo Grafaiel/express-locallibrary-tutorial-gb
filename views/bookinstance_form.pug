@@ -1,0 +1,37 @@
+extends layout 
+
+block content
+    h1= title 
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='book') Livro:
+            select#book.form-control(type='select' placeholder='Selecione um Livro' name='book')
+                - book_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+                for book in book_list
+                    if bookinstance
+                        option(value=book_.id selected=(bookinstance.book.toString()==book._id.toString() ? 'selected' : false)) #{book.title}
+                    else 
+                        option(value=book._id) #{book.title}
+
+        div.form-group
+            label(for='imprint') Impresso:
+            input#imprint.form-control(type='text' placeholder='Editora e data da publicação' name='imprint' value=(undefined===bookinstance ? '' : bookinstance.imprint))
+        div.form-group
+            label(for="due_back") Disponível desde: 
+            input#due_back.form-control(type="date" name="due_back" value=(undefined===bookinstance ? '' : bookinstance.due_back))
+
+        div.form-group
+            label(for="status") Situação: 
+            select#status.for-control.ml-2(name="status" placeholder='Selecione um Status' type='select') 
+                option.text-warning(value="Maintenance") Manutenção
+                option.text-success(value="Available") Disponível
+                option.text-danger(value="Loanded") Emprestado 
+                option(value="Reserved") Reservado 
+        
+        button.btn.btn-primary(type='submit')  Enviar
+    
+    if errors
+        ul  
+            for error in errors
+                li.text-danger.mt-3!= error.msg

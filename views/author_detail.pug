@@ -1,0 +1,25 @@
+extends layout 
+
+block content 
+
+    h1 Autor: #{author.name}
+    p #{author.birth} - #{author.death}
+
+    div(style='margin-left:20px;margin-top:20px')
+
+        h4 Livros 
+
+        dl 
+            each book in author_books 
+                dt 
+                    a(href=book.url) #{book.title}
+                dd #{book.summary}
+
+            else
+                p Este autor não têm livros cadastrados.
+
+        hr
+        p
+            a.text-warning(href=author.url+'/update') #[strong Atualizar Autor]
+        p
+            a.text-danger(href=author.url+'/delete') #[strong Deletar Autor]

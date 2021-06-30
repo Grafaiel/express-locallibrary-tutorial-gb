@@ -1,0 +1,29 @@
+extends layout 
+
+block content 
+    h1
+        p(style='display:inline') #{title}: 
+        a(href=book.url) #{book.title}
+
+    if book_instances.length
+        p.text-danger #[strong Delete as Cópias deste Livro antes de tentar deleta-lo.]
+
+        div(style='margin-left:20px;margin-top:20px')
+
+            h4 Cópias
+
+            dl
+            each instance in book_instances
+                dt
+                    p #[strong ID: ] 
+                        a(href=instance.url) #{instance.id}
+                dd #[strong impresso:] #{instance.imprint}
+    else
+        p Você realmente quer deletar está cópia? 
+
+        form(method='POST' action='')
+            div.form-group
+                input#bookid.form-control(type='hidden', name='bookid', value=book._id)
+
+            button.btn.btn-primary(type='submit') #[strong Deletar] 
+

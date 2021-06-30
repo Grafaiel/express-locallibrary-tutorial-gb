@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h1 #{title}
+
+    p Você realmente deseja deletar esta cópia?
+
+    form(method='POST' action='')
+        div.form-group
+            input#bookinstanceid.form-control(type='hidden', name='bookinstanceid', value=bookinstance._id)
+        
+        button.btn.btn-primary(type='submit') #[strong Deletar]

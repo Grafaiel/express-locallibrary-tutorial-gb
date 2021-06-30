@@ -1,0 +1,24 @@
+extends layout 
+
+block content 
+    h1 #{title}: #{genre.name}
+    
+    if genre_books.length
+        p.text-danger #[strong Delete os livros deste Genêro antes de tentar deleta-lo.]
+
+        div(style='margin-left:20px;margin-top:20px')
+
+            h4 Genêros
+
+            dl
+            each genre in genre_books
+                dt
+                    a(href=genre.url)  #{genre.title}
+    else
+        p Você realmente quer deletar este Genêro?
+
+        form(method='POST' action='')
+            div.form-group
+                input#genreid.form-control(type="hidden", name='genreid', value=genre._id)
+            
+            button.btn.btn-primary(type='submit') #[strong Deletar]

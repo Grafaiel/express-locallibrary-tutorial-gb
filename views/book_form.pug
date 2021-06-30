@@ -1,0 +1,45 @@
+extends layout
+
+block content 
+    h1= title 
+
+    form(method= 'POST' action='')
+        div.form-group
+            label(for='title') Título: 
+            input#title.form-control(type="text", name="title" placeholder='Nome do Livro' value=(undefined===book ? '' : book.title))
+        div.form-group
+            label(for='author') Autor:
+            select#author.form-control(type="select", name="author" placeholder='Selelecione o Autor')
+                - authors.sort(function(a, b) { let textA = a.family_name.toUpperCase(); let textB = b.family_name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+                for author in authors
+                    if book
+                        //- Handle GET form, where book.author is an object, and POST form, where ir is a string.
+                        option(
+                            value=author._id
+                            selected=(
+                                author._id.toString()===book.author._id
+                                || author._id.toString()==book.author
+                            )? 'selected' : false
+                        ) #{author.name}
+                    else
+                        option(value=author._id) #{author.name}
+           
+        div.form-group
+            label(for="summary") Sumário:
+            input#sumarry.form-control(type='textarea', name="summary" placeholder='Sumário' value=(undefined===book ? '' : book.summary))
+        div.form-group
+            label(for='isbn') ISBN:
+            input#isbn.form-control(type="text", name="isbn" placeholder='ISBN13' value=(undefined===book? '' : book.isbn))
+        div.form-group
+            label(for="genre") Genêro:
+            div
+                for genre in genres
+                    div(style='display: inline; padding-right:10px;')
+                        input.checkbox-input(type="checkbox", name="genre", id=genre._id, value=genre._id, checked=genre.checked)
+                        label.ml-1(for=genre._id) #{genre.name}
+        button.btn.btn-primary(type='submit') Enviar
+
+    if errors
+        ul
+            for error in errors
+                li.text-danger.mt-3!= error.msg

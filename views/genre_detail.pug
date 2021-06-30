@@ -1,0 +1,24 @@
+extends layout 
+
+block content 
+
+    h1 Genêro: #{genre.name}
+
+    div(style='margin-left:20px; margin-top:20px')
+
+        h4 Livros 
+
+        dl 
+            each book in genre_books 
+                dt 
+                    a(href=book.url) #{book.title}
+                dd #{book.summary}
+
+            else 
+                p Este genêro não tem livros
+
+        hr
+        p 
+            a.text-warning(href=genre.url+'/update') #[strong Atualizar Genêro]
+        p
+            a.text-danger(href=genre.url+'/delete') #[strong Deletar Genêro]
