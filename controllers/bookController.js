@@ -42,7 +42,7 @@ exports.book_list = function(req, res, next) {
 };
 
 // Display detail page for a specific book.
-exports.book_detail = function(req, res) {
+exports.book_detail = function(req, res, next) {
     
     async.parallel({
         book: function(callback) {
@@ -175,7 +175,7 @@ exports.book_delete_get = function(req, res, next) {
 };
 
 // Handle book delete on POST.
-exports.book_delete_post = function(req, res) {
+exports.book_delete_post = function(req, res, next) {
     
     async.parallel({
         book: function(callback) {
